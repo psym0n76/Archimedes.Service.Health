@@ -29,7 +29,7 @@ namespace Archimedes.Service.Ui.Http
         {
             var health = new HealthMonitorDto()
             {
-                Url = $"{_client.BaseAddress}/health",
+                Url = $"{_client.BaseAddress}health",
                 LastUpdated = DateTime.Now
             };
 
@@ -37,7 +37,7 @@ namespace Archimedes.Service.Ui.Http
 
             if (!response.IsSuccessStatusCode)
             {
-                _logger.LogError($"GET Failed:  {response.ReasonPhrase} from {_client.BaseAddress}/health");
+                _logger.LogError($"GET Failed:  {response.ReasonPhrase} from {_client.BaseAddress}health");
                 health.Status = false;
                 health.StatusMessage = response.ReasonPhrase;
                 return health;
