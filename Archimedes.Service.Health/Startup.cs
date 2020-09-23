@@ -25,6 +25,7 @@ namespace Archimedes.Service.Health
             services.AddHttpClient<IHttpRepositoryClient, HttpRepositoryClient>();
             services.AddHttpClient<IHttpRepositoryApiClient, HttpRepositoryApiClient>();
             services.AddHttpClient<IHttpUiClient, HttpUiClient>();
+            services.AddTransient<IHealthResponse, HealthResponse>();
 
             services.AddLogging();
             services.Configure<Config>(Configuration.GetSection("AppSettings"));
