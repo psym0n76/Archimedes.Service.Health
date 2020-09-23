@@ -49,6 +49,7 @@ namespace Archimedes.Service.Ui.Http
             health.StatusMessage = response.ReasonPhrase;
             health.Version = healthDto.Version;
             health.LastActive = DateTime.Now;
+            health.AppName = healthDto.AppName;
 
             return health;
         }
