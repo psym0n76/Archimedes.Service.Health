@@ -41,6 +41,18 @@ namespace Archimedes.Service.Health
             services.AddHostedService<HealthServiceCandle>();
             services.AddHostedService<HealthServiceRepository>();
             services.AddHostedService<HealthServiceRepositoryApi>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAny", x =>
+                {
+                    x.WithOrigins("http://localhost:4200",
+                            "http://angular-ui.dev.archimedes.com")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +66,8 @@ namespace Archimedes.Service.Health
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowAny");
 
             app.UseAuthorization();
 
