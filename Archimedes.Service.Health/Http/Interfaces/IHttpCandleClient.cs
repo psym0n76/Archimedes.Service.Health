@@ -5,6 +5,6 @@ namespace Archimedes.Service.Ui.Http
 {
     public interface IHttpCandleClient
     {
-        Task<HealthMonitorDto> GetCandleHealth();
+        Task<HealthMonitorDto> GetHealth();
     }
 }

@@ -5,6 +5,6 @@ namespace Archimedes.Service.Ui.Http
 {
     public interface IHttpBrokerClient
     {
-        Task<HealthMonitorDto> GetBrokerHealth();
+        Task<HealthMonitorDto> GetHealth();
     }
 }

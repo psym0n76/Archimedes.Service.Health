@@ -31,7 +31,6 @@ namespace Archimedes.Service.Ui.Http
             health.Version = healthDto.Version;
             health.LastActive = DateTime.Now;
             health.AppName = healthDto.AppName;
-            health.AppName = healthDto.AppName;
             return health;
         }
     }

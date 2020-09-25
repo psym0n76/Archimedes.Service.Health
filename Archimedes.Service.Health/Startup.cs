@@ -1,4 +1,5 @@
 using Archimedes.Library.Domain;
+using Archimedes.Service.Health.Hubs;
 using Archimedes.Service.Ui.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,11 +26,21 @@ namespace Archimedes.Service.Health
             services.AddHttpClient<IHttpRepositoryClient, HttpRepositoryClient>();
             services.AddHttpClient<IHttpRepositoryApiClient, HttpRepositoryApiClient>();
             services.AddHttpClient<IHttpUiClient, HttpUiClient>();
+
+            services.AddSignalR();
+            
             services.AddTransient<IHealthResponse, HealthResponse>();
 
+            services.AddSingleton<IHealthDataStore, HealthDataStore>();
             services.AddLogging();
             services.Configure<Config>(Configuration.GetSection("AppSettings"));
             services.AddControllers();
+
+            services.AddHostedService<HealthServiceUi>();
+            services.AddHostedService<HealthServiceBroker>();
+            services.AddHostedService<HealthServiceCandle>();
+            services.AddHostedService<HealthServiceRepository>();
+            services.AddHostedService<HealthServiceRepositoryApi>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +60,7 @@ namespace Archimedes.Service.Health
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<HealthHub>("/Hubs/Health");
             });
         }
     }

@@ -22,7 +22,7 @@ namespace Archimedes.Service.Ui.Http
             _healthResponse = healthResponse;
         }
 
-        public async Task<HealthMonitorDto> GetBrokerHealth()
+        public async Task<HealthMonitorDto> GetHealth()
         {
             var response = await _client.GetAsync("health");
 
