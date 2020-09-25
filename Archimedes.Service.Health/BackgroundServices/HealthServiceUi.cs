@@ -36,7 +36,7 @@ namespace Archimedes.Service.Health
                     _logger.LogError($"Error found in HealthServiceUi: {e.Message} {e.StackTrace}");
                 }
 
-                Thread.Sleep(40000);
+                Thread.Sleep(15000);
             }
         }
 
