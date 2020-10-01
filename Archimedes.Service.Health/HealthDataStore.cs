@@ -40,6 +40,11 @@ namespace Archimedes.Service.Health
             {
                 health.StatusMessage = response.StatusMessage;
                 health.LastUpdated = response.LastUpdated;
+                health.AppName = response.AppName;
+                health.LastActive = response.LastActive;
+                health.Status = response.Status;
+                health.Version = response.Version;
+                health.LastActiveVersion = response.LastActiveVersion;
 
                 _context.Clients.All.SendAsync("Update", health);
                 return;
