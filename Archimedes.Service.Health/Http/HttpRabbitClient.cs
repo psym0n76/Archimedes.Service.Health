@@ -10,7 +10,6 @@ namespace Archimedes.Service.Ui.Http
     public class HttpRabbitClient : IHttpRabbitClient
     {
         private readonly HttpClient _client;
-        private readonly Config _config;
 
         //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.1
 
@@ -18,7 +17,6 @@ namespace Archimedes.Service.Ui.Http
         {
             httpClient.BaseAddress = new Uri($"http://{config.Value.RabbitHost}:1{config.Value.RabbitPort}");
             _client = httpClient;
-            _config = config.Value;
         }
 
         public async Task<HealthMonitorDto> GetHealth()
