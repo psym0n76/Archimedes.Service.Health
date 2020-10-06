@@ -28,7 +28,7 @@ namespace Archimedes.Service.Ui.Http
             {
                 LastUpdated = DateTime.Now,
                 AppName = "Archimedes.Rabbit",
-                Version = "1.0",
+                Version = "1.0.0",
                 Url = "http://localhost:15673"
             };
 
