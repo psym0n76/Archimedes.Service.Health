@@ -28,12 +28,13 @@ namespace Archimedes.Service.Ui.Http
             {
                 LastUpdated = DateTime.Now,
                 AppName = "Archimedes.Rabbit",
-                Version = "1.0"
+                Version = "1.0",
+                Url = "http://localhost:15673"
             };
 
             try
             {
-                var response = await _client.GetAsync("/#/");
+                var response = await _client.GetAsync("");
 
                 health.Url = response.RequestMessage.RequestUri.ToString();
 
