@@ -27,6 +27,8 @@ namespace Archimedes.Service.Health
             services.AddHttpClient<IHttpRepositoryApiClient, HttpRepositoryApiClient>();
             services.AddHttpClient<IHttpUiClient, HttpUiClient>();
 
+            services.AddHttpClient<IHttpRabbitClient, HttpRabbitClient>();
+
             services.AddSignalR();
             
             services.AddTransient<IHealthResponse, HealthResponse>();
@@ -41,6 +43,7 @@ namespace Archimedes.Service.Health
             services.AddHostedService<HealthServiceCandle>();
             services.AddHostedService<HealthServiceRepository>();
             services.AddHostedService<HealthServiceRepositoryApi>();
+            services.AddHostedService<HealthServiceRabbit>();
 
             services.AddCors(options =>
             {
