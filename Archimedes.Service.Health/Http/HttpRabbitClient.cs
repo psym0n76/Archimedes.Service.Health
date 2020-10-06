@@ -29,7 +29,7 @@ namespace Archimedes.Service.Ui.Http
                 LastUpdated = DateTime.Now,
                 AppName = "Archimedes.Rabbit",
                 Version = "1.0.0",
-                Url = $"http://{_config.RabbitHost}:1{_config.RabbitPort}"
+                Url = $"http://{_config.RabbitHost}:1{_config.RabbitPort}/"
             };
 
             try
