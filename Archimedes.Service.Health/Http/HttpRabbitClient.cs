@@ -23,26 +23,40 @@ namespace Archimedes.Service.Ui.Http
 
         public async Task<HealthMonitorDto> GetHealth()
         {
-            var response = await _client.GetAsync("/#/");
-
+            //todo needs refactoring
             var health = new HealthMonitorDto()
             {
-                Url = response.RequestMessage.RequestUri.ToString(),
                 LastUpdated = DateTime.Now,
                 AppName = "Archimedes.Rabbit",
                 Version = "1.0"
             };
 
-            if (!response.IsSuccessStatusCode)
+            try
+            {
+                var response = await _client.GetAsync("/#/");
+
+                health.Url = response.RequestMessage.RequestUri.ToString();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    health.Status = false;
+                    health.StatusMessage = response.ReasonPhrase;
+                    return health;
+                }
+
+                health.Status = true;
+                health.StatusMessage = response.ReasonPhrase;
+                health.LastActive = DateTime.Now;
+            }
+            catch (Exception e)
             {
                 health.Status = false;
-                health.StatusMessage = response.ReasonPhrase;
-                return health;
-            }
 
-            health.Status = true;
-            health.StatusMessage = response.ReasonPhrase;
-            health.LastActive = DateTime.Now;
+                if (e.Message == "No connection could be made because the target machine actively refused it.")
+                {
+                    health.StatusMessage = "Refused";
+                }
+            }
 
             return health;
         }
