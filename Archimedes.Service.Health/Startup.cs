@@ -44,6 +44,7 @@ namespace Archimedes.Service.Health
             services.AddHostedService<HealthServiceRepository>();
             services.AddHostedService<HealthServiceRepositoryApi>();
             services.AddHostedService<HealthServiceRabbit>();
+            services.AddHostedService<HealthServiceStrategy>();
 
             services.AddCors(options =>
             {
