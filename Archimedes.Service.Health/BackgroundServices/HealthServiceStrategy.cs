@@ -42,7 +42,7 @@ namespace Archimedes.Service.Health
 
         private async Task UpdateStrategyHealth()
         {
-            var response = await _httpClient.GetHealth();
+            var response = await _httpClient.GetStrategyHealth();
             _healthDataStore.Update(response);
         }
     }
