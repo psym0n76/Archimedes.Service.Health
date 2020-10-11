@@ -10,11 +10,11 @@ namespace Archimedes.Service.Health
     public class HealthServiceStrategy : BackgroundService
     {
 
-        private readonly IHttpBrokerClient _httpClient;
+        private readonly IHttpStrategyClient _httpClient;
         private readonly IHealthDataStore _healthDataStore;
         private readonly ILogger<HealthServiceStrategy> _logger;
 
-        public HealthServiceStrategy(IHttpBrokerClient httpClient, IHealthDataStore healthDataStore, ILogger<HealthServiceStrategy> logger)
+        public HealthServiceStrategy(IHttpStrategyClient httpClient, IHealthDataStore healthDataStore, ILogger<HealthServiceStrategy> logger)
         {
             _httpClient = httpClient;
             _healthDataStore = healthDataStore;
