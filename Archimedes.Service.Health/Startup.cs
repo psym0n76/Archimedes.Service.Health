@@ -26,6 +26,8 @@ namespace Archimedes.Service.Health
             services.AddHttpClient<IHttpRepositoryClient, HttpRepositoryClient>();
             services.AddHttpClient<IHttpRepositoryApiClient, HttpRepositoryApiClient>();
             services.AddHttpClient<IHttpUiClient, HttpUiClient>();
+            services.AddHttpClient<IHttpStrategyClient, HttpStrategyClient>();
+
 
             services.AddHttpClient<IHttpRabbitClient, HttpRabbitClient>();
 
