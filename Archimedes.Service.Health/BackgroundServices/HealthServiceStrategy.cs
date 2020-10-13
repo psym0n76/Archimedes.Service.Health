@@ -23,12 +23,13 @@ namespace Archimedes.Service.Health
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            _logger.LogInformation($"Running HealthServiceStrategy");
+
             while (true)
             {
                 try
                 {
                     stoppingToken.ThrowIfCancellationRequested();
-                    _logger.LogInformation($"Running HealthServiceStrategy");
                     await UpdateStrategyHealth();
                 }
                 catch (Exception e)

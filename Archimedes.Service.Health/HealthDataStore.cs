@@ -3,6 +3,7 @@ using System.Linq;
 using Archimedes.Library.Message.Dto;
 using Archimedes.Service.Health.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 
 namespace Archimedes.Service.Health
 {
@@ -10,10 +11,12 @@ namespace Archimedes.Service.Health
     {
         private readonly List<HealthMonitorDto> _responses = new List<HealthMonitorDto>();
         private readonly IHubContext<HealthHub> _context;
+        private readonly ILogger<HealthDataStore> _logger;
 
-        public HealthDataStore(IHubContext<HealthHub> context)
+        public HealthDataStore(IHubContext<HealthHub> context, ILogger<HealthDataStore> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public void Add(HealthMonitorDto response)
@@ -30,6 +33,9 @@ namespace Archimedes.Service.Health
 
         public void Update(HealthMonitorDto response)
         {
+            
+            _logger.LogInformation($"Received Health UPDATE: {response}");
+
             if (!_responses.Exists(a => a.Url == response.Url))
             {
                 Add(response);
