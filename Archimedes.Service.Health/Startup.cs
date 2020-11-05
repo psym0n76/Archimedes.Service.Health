@@ -27,7 +27,7 @@ namespace Archimedes.Service.Health
             services.AddHttpClient<IHttpRepositoryApiClient, HttpRepositoryApiClient>();
             services.AddHttpClient<IHttpUiClient, HttpUiClient>();
             services.AddHttpClient<IHttpStrategyClient, HttpStrategyClient>();
-
+            services.AddHttpClient<IHttpTradeClient, HttpTradeClient>();
 
             services.AddHttpClient<IHttpRabbitClient, HttpRabbitClient>();
 
@@ -47,6 +47,9 @@ namespace Archimedes.Service.Health
             services.AddHostedService<HealthServiceRepositoryApi>();
             services.AddHostedService<HealthServiceRabbit>();
             services.AddHostedService<HealthServiceStrategy>();
+            services.AddHostedService<HealthServiceTrade>();
+            
+            //todo this CORS i think can be removed as we broadcast to Service-UI
 
             services.AddCors(options =>
             {
@@ -80,7 +83,7 @@ namespace Archimedes.Service.Health
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<HealthHub>("/Hubs/Health");
+                endpoints.MapHub<HealthHub>("/hubs/health");
             });
         }
     }
