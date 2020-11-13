@@ -40,14 +40,7 @@ namespace Archimedes.Service.Health
             services.Configure<Config>(Configuration.GetSection("AppSettings"));
             services.AddControllers();
 
-            services.AddHostedService<HealthServiceUi>();
-            services.AddHostedService<HealthServiceBroker>();
-            services.AddHostedService<HealthServiceCandle>();
-            services.AddHostedService<HealthServiceRepository>();
-            services.AddHostedService<HealthServiceRepositoryApi>();
-            services.AddHostedService<HealthServiceRabbit>();
-            services.AddHostedService<HealthServiceStrategy>();
-            services.AddHostedService<HealthServiceTrade>();
+
             
             //todo this CORS i think can be removed as we broadcast to Service-UI
 

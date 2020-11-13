@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
@@ -40,6 +41,19 @@ namespace Archimedes.Service.Health
                 {
                     webBuilder.UseStartup<Startup>();
                     webBuilder.CaptureStartupErrors(false);
-                }).UseNLog();
+                }).UseNLog()
+                .ConfigureServices(services =>
+                {
+                    services.AddHostedService<HealthServiceUi>();
+                    services.AddHostedService<HealthServiceBroker>();
+                    services.AddHostedService<HealthServiceCandle>();
+                    services.AddHostedService<HealthServiceRepository>();
+                    services.AddHostedService<HealthServiceRepositoryApi>();
+                    services.AddHostedService<HealthServiceRabbit>();
+                    services.AddHostedService<HealthServiceStrategy>();
+                    services.AddHostedService<HealthServiceTrade>();
+                });
     }
 }
+
+
