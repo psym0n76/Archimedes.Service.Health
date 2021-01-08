@@ -14,7 +14,8 @@ namespace Archimedes.Service.Health
         private readonly IHealthDataStore _healthDataStore;
         private readonly ILogger<HealthServiceBroker> _logger;
 
-        public HealthServiceBroker(IHttpBrokerClient httpClient, IHealthDataStore healthDataStore, ILogger<HealthServiceBroker> logger)
+        public HealthServiceBroker(IHttpBrokerClient httpClient, IHealthDataStore healthDataStore,
+            ILogger<HealthServiceBroker> logger)
         {
             _httpClient = httpClient;
             _healthDataStore = healthDataStore;
@@ -32,12 +33,16 @@ namespace Archimedes.Service.Health
                     stoppingToken.ThrowIfCancellationRequested();
                     await UpdateUiHealth();
                 }
+                catch (OperationCanceledException ox)
+                {
+                    _logger.LogError($"Cancellation Invoked {ox.Message} \n\nRetry after 5 secs");
+                }
                 catch (Exception e)
                 {
                     _logger.LogError($"Error found in HealthServiceBroker: {e.Message} {e.StackTrace}");
                 }
 
-                Thread.Sleep(15000);
+                Thread.Sleep(5000);
             }
         }
 

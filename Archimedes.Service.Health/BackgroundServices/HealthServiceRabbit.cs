@@ -31,6 +31,10 @@ namespace Archimedes.Service.Health
                     stoppingToken.ThrowIfCancellationRequested();
                     await UpdateUiHealth();
                 }
+                catch (OperationCanceledException ox)
+                {
+                    _logger.LogError($"Cancellation Invoked {ox.Message} \n\nRetry after 5 secs");
+                }
                 catch (Exception e)
                 {
                     _logger.LogError($"Error found in HealthServiceRabbit: {e.Message} {e.StackTrace}");

@@ -3,35 +3,48 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Archimedes.Library.Extensions;
 using Archimedes.Library.Message.Dto;
+using Microsoft.Extensions.Logging;
 
 namespace Archimedes.Service.Ui.Http
 {
     public class HealthResponse : IHealthResponse
     {
+        private readonly ILogger<HealthResponse> _logger;
+
+        public HealthResponse(ILogger<HealthResponse> logger)
+        {
+            _logger = logger;
+        }
+
         public async Task<HealthMonitorDto> Build(HttpResponseMessage response)
         {
 
-            var health = new HealthMonitorDto()
-            {
-                Url = response.RequestMessage.RequestUri.ToString(),
-                LastUpdated = DateTime.Now
-            };
-
             if (!response.IsSuccessStatusCode)
             {
-                health.Status = false;
-                health.StatusMessage = response.ReasonPhrase;
-                return health;
+                var errorResponse = await response.Content.ReadAsAsync<string>();
+
+                if (response.RequestMessage != null)
+                    _logger.LogError(
+                        $"GET Failed: {response.ReasonPhrase}  \n\n{errorResponse} \n\n{response.RequestMessage.RequestUri}");
+                
+                return new HealthMonitorDto()
+                {
+                    Status = false,
+                    StatusMessage = response.ReasonPhrase,
+                    Url = response.RequestMessage.RequestUri.ToString()
+                };
             }
 
             var healthDto = await response.Content.ReadAsAsync<HealthMonitorDto>();
 
-            health.Status = true;
-            health.StatusMessage = response.ReasonPhrase;
-            health.Version = healthDto.Version;
-            health.LastActive = DateTime.Now;
-            health.AppName = healthDto.AppName;
-            return health;
+            return new HealthMonitorDto()
+            {
+                Status = true,
+                StatusMessage = response.ReasonPhrase,
+                Version = healthDto.Version,
+                LastActive = DateTime.Now,
+                AppName = healthDto.AppName
+            };
         }
     }
 }

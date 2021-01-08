@@ -14,7 +14,8 @@ namespace Archimedes.Service.Health
         private readonly IHealthDataStore _healthDataStore;
         private readonly ILogger<HealthServiceUi> _logger;
 
-        public HealthServiceUi(IHttpUiClient httpClient, IHealthDataStore healthDataStore, ILogger<HealthServiceUi> logger)
+        public HealthServiceUi(IHttpUiClient httpClient, IHealthDataStore healthDataStore,
+            ILogger<HealthServiceUi> logger)
         {
             _httpClient = httpClient;
             _healthDataStore = healthDataStore;
@@ -31,6 +32,10 @@ namespace Archimedes.Service.Health
                 {
                     stoppingToken.ThrowIfCancellationRequested();
                     await UpdateUiHealth();
+                }
+                catch (OperationCanceledException ox)
+                {
+                    _logger.LogError($"Cancellation Invoked {ox.Message} \n\nRetry after 5 secs");
                 }
                 catch (Exception e)
                 {
