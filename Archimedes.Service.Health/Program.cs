@@ -44,14 +44,14 @@ namespace Archimedes.Service.Health
                 }).UseNLog()
                 .ConfigureServices(services =>
                 {
-                    services.AddHostedService<HealthServiceUi>();
-                    services.AddHostedService<HealthServiceBroker>();
+                    //services.AddHostedService<HealthServiceUi>();
+                    //services.AddHostedService<HealthServiceBroker>();
                     services.AddHostedService<HealthServiceCandle>();
-                    services.AddHostedService<HealthServiceRepository>();
-                    services.AddHostedService<HealthServiceRepositoryApi>();
-                    services.AddHostedService<HealthServiceRabbit>();
-                    services.AddHostedService<HealthServiceStrategy>();
-                    services.AddHostedService<HealthServiceTrade>();
+                    //services.AddHostedService<HealthServiceRepository>();
+                    //services.AddHostedService<HealthServiceRepositoryApi>();
+                    //services.AddHostedService<HealthServiceRabbit>();
+                    //services.AddHostedService<HealthServiceStrategy>();
+                    //services.AddHostedService<HealthServiceTrade>();
                 });
     }
 }

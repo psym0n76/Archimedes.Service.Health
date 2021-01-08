@@ -21,7 +21,8 @@ namespace Archimedes.Service.Ui.Http
 
             if (!response.IsSuccessStatusCode)
             {
-                var errorResponse = await response.Content.ReadAsAsync<string>();
+
+                var errorResponse = await response.Content.ReadAsStringAsync();
 
                 if (response.RequestMessage != null)
                     _logger.LogError(
