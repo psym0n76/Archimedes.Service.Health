@@ -32,7 +32,9 @@ namespace Archimedes.Service.Ui.Http
                 {
                     Status = false,
                     StatusMessage = response.ReasonPhrase,
-                    Url = response.RequestMessage.RequestUri.ToString()
+                    Url = response.RequestMessage.RequestUri.ToString(),
+                    LastUpdated = DateTime.Now
+                    
                 };
             }
 
