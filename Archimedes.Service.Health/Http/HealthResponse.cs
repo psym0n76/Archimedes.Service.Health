@@ -39,6 +39,7 @@ namespace Archimedes.Service.Ui.Http
 
             return new HealthMonitorDto()
             {
+                Url = response.RequestMessage.RequestUri.ToString(),
                 Status = true,
                 StatusMessage = response.ReasonPhrase,
                 Version = healthDto.Version,
