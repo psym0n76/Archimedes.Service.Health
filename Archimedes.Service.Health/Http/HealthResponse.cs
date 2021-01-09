@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Archimedes.Library.Extensions;
+using Archimedes.Library.Logger;
 using Archimedes.Library.Message.Dto;
 using Microsoft.Extensions.Logging;
 
@@ -10,6 +11,8 @@ namespace Archimedes.Service.Ui.Http
     public class HealthResponse : IHealthResponse
     {
         private readonly ILogger<HealthResponse> _logger;
+        private readonly BatchLog _batchLog = new();
+        private string _logId;
 
         public HealthResponse(ILogger<HealthResponse> logger)
         {
@@ -18,16 +21,17 @@ namespace Archimedes.Service.Ui.Http
 
         public async Task<HealthMonitorDto> Build(HttpResponseMessage response)
         {
-
+            _logId = _batchLog.Start();
+            _batchLog.Update(_logId, $"Build HealthResponse");
+            
             if (!response.IsSuccessStatusCode)
             {
-
-                var errorResponse = await response.Content.ReadAsStringAsync();
-
                 if (response.RequestMessage != null)
+                    
                     _logger.LogWarning(
-                        $"GET Failed: {response.ReasonPhrase} from {response.RequestMessage.RequestUri}");
-                
+                        _batchLog.Print(_logId,
+                            $"GET Failed: {response.ReasonPhrase} from {response.RequestMessage.RequestUri}"));
+
                 return new HealthMonitorDto()
                 {
                     Status = false,
@@ -38,6 +42,8 @@ namespace Archimedes.Service.Ui.Http
             }
 
             var healthDto = await response.Content.ReadAsAsync<HealthMonitorDto>();
+            
+            _logger.LogInformation(_batchLog.Print(_logId,$"Response: {response.ReasonPhrase} from {response.RequestMessage.RequestUri.ToString()}"));
 
             return new HealthMonitorDto()
             {
