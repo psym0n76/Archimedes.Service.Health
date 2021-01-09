@@ -25,8 +25,8 @@ namespace Archimedes.Service.Ui.Http
                 var errorResponse = await response.Content.ReadAsStringAsync();
 
                 if (response.RequestMessage != null)
-                    _logger.LogError(
-                        $"GET Failed: {response.ReasonPhrase}  \n\n{errorResponse} \n\n{response.RequestMessage.RequestUri}");
+                    _logger.LogWarning(
+                        $"GET Failed: {response.ReasonPhrase}  \n\n{response.RequestMessage.RequestUri}");
                 
                 return new HealthMonitorDto()
                 {
@@ -34,7 +34,6 @@ namespace Archimedes.Service.Ui.Http
                     StatusMessage = response.ReasonPhrase,
                     Url = response.RequestMessage.RequestUri.ToString(),
                     LastUpdated = DateTime.Now
-                    
                 };
             }
 

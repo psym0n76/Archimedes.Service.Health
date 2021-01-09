@@ -9,7 +9,7 @@ namespace Archimedes.Service.Health
 {
     public class HealthDataStore : IHealthDataStore
     {
-        private readonly List<HealthMonitorDto> _responses = new List<HealthMonitorDto>();
+        private readonly List<HealthMonitorDto> _responses = new();
         private readonly IHubContext<HealthHub> _context;
         private readonly ILogger<HealthDataStore> _logger;
 
@@ -33,8 +33,7 @@ namespace Archimedes.Service.Health
 
         public void Update(HealthMonitorDto response)
         {
-            
-            _logger.LogInformation($"Received Health UPDATE: {response}");
+            _logger.LogInformation($"Received Health UPDATE: {response.AppName} {response.StatusMessage}");
 
             if (!_responses.Exists(a => a.Url == response.Url))
             {

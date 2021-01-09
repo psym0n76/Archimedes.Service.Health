@@ -21,6 +21,9 @@ namespace Archimedes.Service.Health
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(Configuration);
+            services.Configure<Config>(Configuration.GetSection("AppSettings"));
+
             services.AddHttpClient<IHttpBrokerClient, HttpBrokerClient>();
             services.AddHttpClient<IHttpCandleClient, HttpCandleClient>();
             services.AddHttpClient<IHttpRepositoryClient, HttpRepositoryClient>();
@@ -37,7 +40,7 @@ namespace Archimedes.Service.Health
 
             services.AddSingleton<IHealthDataStore, HealthDataStore>();
             services.AddLogging();
-            services.Configure<Config>(Configuration.GetSection("AppSettings"));
+
             services.AddControllers();
 
 
