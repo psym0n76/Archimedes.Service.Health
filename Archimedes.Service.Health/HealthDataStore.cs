@@ -33,8 +33,6 @@ namespace Archimedes.Service.Health
 
         public void Update(HealthMonitorDto response)
         {
-            _logger.LogInformation($"Received Health UPDATE: {response.AppName} {response.StatusMessage}");
-
             if (!_responses.Exists(a => a.Url == response.Url))
             {
                 Add(response);
