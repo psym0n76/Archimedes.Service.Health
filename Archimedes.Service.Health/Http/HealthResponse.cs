@@ -26,7 +26,7 @@ namespace Archimedes.Service.Ui.Http
 
                 if (response.RequestMessage != null)
                     _logger.LogWarning(
-                        $"GET Failed: {response.ReasonPhrase}  \n\n{response.RequestMessage.RequestUri}");
+                        $"GET Failed: {response.ReasonPhrase} from {response.RequestMessage.RequestUri}");
                 
                 return new HealthMonitorDto()
                 {
