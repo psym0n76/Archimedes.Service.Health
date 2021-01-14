@@ -6,7 +6,7 @@ using Archimedes.Library.Logger;
 using Archimedes.Library.Message.Dto;
 using Microsoft.Extensions.Logging;
 
-namespace Archimedes.Service.Ui.Http
+namespace Archimedes.Service.Health.Http
 {
     public class HealthResponse : IHealthResponse
     {

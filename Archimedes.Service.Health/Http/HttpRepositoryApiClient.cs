@@ -5,7 +5,7 @@ using Archimedes.Library.Domain;
 using Archimedes.Library.Message.Dto;
 using Microsoft.Extensions.Options;
 
-namespace Archimedes.Service.Ui.Http
+namespace Archimedes.Service.Health.Http
 {
     public class HttpRepositoryApiClient : IHttpRepositoryApiClient
     {

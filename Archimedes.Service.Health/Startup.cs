@@ -1,6 +1,6 @@
 using Archimedes.Library.Domain;
+using Archimedes.Service.Health.Http;
 using Archimedes.Service.Health.Hubs;
-using Archimedes.Service.Ui.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -43,8 +43,6 @@ namespace Archimedes.Service.Health
 
             services.AddControllers();
 
-
-            
             //todo this CORS i think can be removed as we broadcast to Service-UI
 
             services.AddCors(options =>

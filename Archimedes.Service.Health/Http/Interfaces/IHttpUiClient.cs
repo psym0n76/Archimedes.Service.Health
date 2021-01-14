@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Archimedes.Library.Message.Dto;
 
-namespace Archimedes.Service.Ui.Http
+namespace Archimedes.Service.Health.Http
 {
     public interface IHttpUiClient
     {

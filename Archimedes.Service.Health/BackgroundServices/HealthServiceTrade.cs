@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Archimedes.Service.Ui.Http;
+using Archimedes.Service.Health.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
